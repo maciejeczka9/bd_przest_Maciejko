@@ -1,0 +1,13 @@
+cd C:\Program Files\Git\baza
+git init magda
+cd C:\Program Files\Git\baza\magda
+git checkout -b cwiczenie3
+git add firma.sql
+git commit -m "commit message"
+git remote add origin https://github.com/maciejeczka9/database_Maciejko
+git push origin cwiczenie3
+
+
+/// git config --global user.email "m.maciejko9@wp.pl"
+
+
