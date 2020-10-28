@@ -42,7 +42,7 @@ INSERT INTO drogi VALUES (2,ST_GeomFromText('LINESTRING(7.5 10.5, 7.5 0)',0),'Ro
 -- a) Wyznacz całkowitą długość dróg w analizowanym mieście. 
 SELECT SUM(ST_LENGTH(d.geometria)) AS dl_drogi FROM drogi d;
 -- b) Wypisz geometrię (WKT), pole powierzchni oraz obwód poligonu reprezentującego budynek o nazwie BuildingA. 
-SELECT ST_AsText(b.geometria_b) geometria, ST_AREA(geometria_b) pole,ST_PERIMETER(geometria_b) obwod FROM budynki b WHERE b.nazwa_b='BulidingA';
+SELECT ST_AsText(b.geometria_b) geometria, ST_AREA(geometria_b) pole,ST_PERIMETER(geometria_b) obwod FROM budynki b WHERE b.nazwa_b='BuildingA';
 -- c) Wypisz nazwy i pola powierzchni wszystkich poligonów w warstwie budynki. Wyniki posortuj alfabetycznie.  
 SELECT b.nazwa_b, ST_AREA(b.geometria_b) pole FROM budynki b ORDER BY nazwa_b;
 -- d) Wypisz nazwy i obwody 2 budynków o największej powierzchni. 
@@ -56,5 +56,5 @@ SELECT ST_AREA(ST_DIFFERENCE((SELECT b.geometria_b FROM budynki b WHERE b.nazwa_
 -- g) Wybierz te budynki, których centroid (ST_Centroid) znajduje się powyżej drogi o nazwie RoadX.  
 SELECT b.nazwa_b, ST_AsText(ST_Centroid(b.geometria_b)) AS centrum FROM budynki b WHERE ST_Y(ST_Centroid(b.geometria_b)) > (SELECT ST_Y(ST_Centroid(d.geometria)) FROM drogi d WHERE nazwa LIKE 'RoadX');
 -- h)  Oblicz pole powierzchni tych części budynku BuildingC i poligonu o współrzędnych (4 7, 6 7, 6 8, 4 8, 4 7), które nie są wspólne dla tych dwóch obiektów.
-SELECT ST_AREA(ST_SymDifference(b.geometria_b,ST_GeomFromText('POLYGON((4 7,6 7,6 8,4 8,4 7))',0))) FROM budynki b WHERE b.nazwa_b='BuildingC';
+SELECT ST_AREA(ST_DymDifference(b.geometria_b,ST_GeomFromText('POLYGON((4 7,6 7,6 8,4 8,4 7))',0))) FROM budynki b WHERE b.nazwa_b='BuildingC';
 
